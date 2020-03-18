@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--mappers：根标签，namespace：命名空间，随便写，在同一个命名空间下保持唯一-->
+<mapper namespace="com.gqb.eurekaclient.dao.UserMapper">
+
+    <!--写resultType 对象时，需要返回的字段和对象属性一致, 否则需要用resultMap，指定column和property对应关系-->
+    <select id="selectMapperByid" resultType="com.gqb.eurekaclient.entity.User">
+        select id,name,pass_word as password,real_name as realName from tbl_user where id = #{id}
+    </select>
+
+    <insert id="insertUser" parameterType="com.gqb.eurekaclient.entity.User">
+        <selectKey>select LAST_INSERT_ID()</selectKey>
+        insert into tbl_user(name,password,realname) value (#{name},#{password},#{realname})
+    </insert>
+
+    <select id="selectList" resultType="com.gqb.eurekaclient.entity.User">
+        select * from tbl_user
+    </select>
+</mapper>
